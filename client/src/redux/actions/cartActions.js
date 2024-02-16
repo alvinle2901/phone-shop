@@ -7,7 +7,7 @@ import {
   CART_SAVE_SHIPPING_ADDRESS,
 } from "../constants/cartConstants"
 
-const link = "https://phone-shop-ia2pbfq6z-alvinle29.vercel.app"
+const link = "https://phone-shop-alpha.vercel.app"
 
 export const addToCart = (id, qty) => async (dispatch, getState) => {
   const { data } = await axios.get(`${link}/api/products/${id}`)

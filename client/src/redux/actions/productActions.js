@@ -13,7 +13,7 @@ import {
 } from "../constants/productConstants"
 import { LogOut } from "./userActions"
 
-const link = "https://phone-shop-ia2pbfq6z-alvinle29.vercel.app"
+const link = "https://phone-shop-alpha.vercel.app"
 
 export const listProduct =
   (keyword = " ", pageNumber = " ") =>

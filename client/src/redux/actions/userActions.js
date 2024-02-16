@@ -17,7 +17,7 @@ import {
   USER_UPDATE_SUCCESS,
 } from "../constants/userConstants"
 
-const link = "https://phone-shop-ia2pbfq6z-alvinle29.vercel.app"
+const link = "https://phone-shop-alpha.vercel.app"
 
 export const LogIn = (email, password) => async (dispatch) => {
   try {
