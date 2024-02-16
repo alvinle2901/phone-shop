@@ -18,7 +18,7 @@ import {
 import { CART_CLEAR_ITEMS } from "../constants/cartConstants"
 import { LogOut } from "./userActions"
 
-const link = "https://teeny-eggnog-production.up.railway.app" || ""
+const link = "https://phone-shop-ia2pbfq6z-alvinle29.vercel.app"
 
 export const createOrder = (order) => async (dispatch, getState) => {
   try {
