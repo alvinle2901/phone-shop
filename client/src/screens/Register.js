@@ -1,39 +1,39 @@
-import React, { useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { Link, useLocation, useNavigate } from "react-router-dom"
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-import { RegisterUser } from "../redux/actions/userActions"
+import { RegisterUser } from '../redux/actions/userActions';
 
-import Header from "../components/Header"
-import Loading from "../components/LoadingError/Loading"
-import Message from '../components/LoadingError/Error'
+import Header from '../components/Header';
+import Loading from '../components/LoadingError/Loading';
+import Message from '../components/LoadingError/Error';
 
 const Register = ({ location, history }) => {
-  window.scrollTo(0, 0)
+  window.scrollTo(0, 0);
 
-  const [name, setName] = useState("")
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   //const navigate = useNavigate()
   //const location = useLocation()
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const redirect = location.search ? location.search.split("=")[1] : "/"
+  const redirect = location.search ? location.search.split('=')[1] : '/';
 
-  const userRegister = useSelector((state) => state.userRegister)
-  const { error, loading, userInfo } = userRegister
+  const userRegister = useSelector((state) => state.userRegister);
+  const { error, loading, userInfo } = userRegister;
 
   useEffect(() => {
     if (userInfo) {
-      history.push(redirect)
+      history.push(redirect);
     }
-  }, [userInfo, history, redirect])
+  }, [userInfo, history, redirect]);
 
   const submitHandler = (e) => {
-    e.preventDefault()
-    dispatch(RegisterUser(name, email, password))
-  }
+    e.preventDefault();
+    dispatch(RegisterUser(name, email, password));
+  };
 
   return (
     <>
@@ -44,8 +44,7 @@ const Register = ({ location, history }) => {
 
         <form
           className="Login col-md-8 col-lg-4 col-11"
-          onSubmit={submitHandler}
-        >
+          onSubmit={submitHandler}>
           <input
             type="text"
             placeholder="Username"
@@ -67,14 +66,14 @@ const Register = ({ location, history }) => {
 
           <button type="submit">Register</button>
           <p>
-            <Link to={redirect ? `/login?redirect=${redirect}` : "/login"}>
+            <Link to={redirect ? `/login?redirect=${redirect}` : '/login'}>
               I Have Account <strong>Login</strong>
             </Link>
           </p>
         </form>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Register
+export default Register;

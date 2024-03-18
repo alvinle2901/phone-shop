@@ -1,33 +1,33 @@
-import React, { useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { Link, useHistory } from "react-router-dom"
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
 
-import { LogOut } from "../redux/actions/userActions"
+import { LogOut } from '../redux/actions/userActions';
 
 const Header = () => {
-  const dispatch = useDispatch()
-  const history = useHistory()
+  const dispatch = useDispatch();
+  const history = useHistory();
 
-  const [keyword, setKeyword] = useState()
+  const [keyword, setKeyword] = useState();
 
-  const cart = useSelector((state) => state.cart)
-  const { cartItems } = cart
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
 
-  const userLogin = useSelector((state) => state.userLogin)
-  const { userInfo } = userLogin
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
   const logOutHandler = () => {
-    dispatch(LogOut())
-  }
+    dispatch(LogOut());
+  };
 
   const submitHandler = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (keyword?.trim()) {
-      history.push(`/search/${keyword}`)
+      history.push(`/search/${keyword}`);
     } else {
-      history.push("/")
+      history.push('/');
     }
-  }
+  };
 
   return (
     <div>
@@ -43,54 +43,50 @@ const Header = () => {
                   </Link>
                 </div>
                 <div className="col-6 d-flex align-items-center justify-content-end Login-Register">
-                  {
-                    userInfo ? (
-                      <div className="btn-group">
-                        <button
-                          type="button"
-                          className="name-button dropdown-toggle"
-                          data-toggle="dropdown"
-                          aria-haspopup="true"
-                          aria-expanded="false"
-                        >
-                          <i class="fas fa-user"></i>
-                        </button>
-                        <div className="dropdown-menu">
-                          <Link className="dropdown-item" to="/profile">
-                            Profile
-                          </Link>
+                  {userInfo ? (
+                    <div className="btn-group">
+                      <button
+                        type="button"
+                        className="name-button dropdown-toggle"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false">
+                        <i class="fas fa-user"></i>
+                      </button>
+                      <div className="dropdown-menu">
+                        <Link className="dropdown-item" to="/profile">
+                          Profile
+                        </Link>
 
-                          <Link
-                            className="dropdown-item" to="#"
-                            onClick={logOutHandler}
-                          >
-                            Logout
-                          </Link>
-                        </div>
+                        <Link
+                          className="dropdown-item"
+                          to="#"
+                          onClick={logOutHandler}>
+                          Logout
+                        </Link>
                       </div>
-                    ) : (
-                      <div className="btn-group">
-                        <button
-                          type="button"
-                          className="name-button dropdown-toggle"
-                          data-toggle="dropdown"
-                          aria-haspopup="true"
-                          aria-expanded="false"
-                        >
-                          <i class="fas fa-user"></i>
-                        </button>
-                        <div className="dropdown-menu">
-                          <Link className="dropdown-item" to="/login">
-                            Login
-                          </Link>
+                    </div>
+                  ) : (
+                    <div className="btn-group">
+                      <button
+                        type="button"
+                        className="name-button dropdown-toggle"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false">
+                        <i class="fas fa-user"></i>
+                      </button>
+                      <div className="dropdown-menu">
+                        <Link className="dropdown-item" to="/login">
+                          Login
+                        </Link>
 
-                          <Link className="dropdown-item" to="/register">
-                            Register
-                          </Link>
-                        </div>
+                        <Link className="dropdown-item" to="/register">
+                          Register
+                        </Link>
                       </div>
-                    )
-                  }
+                    </div>
+                  )}
 
                   <Link to="/cart" className="cart-mobile-icon">
                     <i className="fas fa-shopping-bag"></i>
@@ -136,40 +132,35 @@ const Header = () => {
                 </form>
               </div>
               <div className="col-md-3 d-flex align-items-center justify-content-end Login-Register">
-                {
-                  userInfo ? (
-                    <div className="btn-group">
-                      <button
-                        type="button"
-                        className="name-button dropdown-toggle"
-                        data-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                      >
-                        Hi, {userInfo.name}
-                      </button>
-                      <div className="dropdown-menu">
-                        <Link className="dropdown-item" to="/profile">
-                          Profile
-                        </Link>
+                {userInfo ? (
+                  <div className="btn-group">
+                    <button
+                      type="button"
+                      className="name-button dropdown-toggle"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false">
+                      Hi, {userInfo.name}
+                    </button>
+                    <div className="dropdown-menu">
+                      <Link className="dropdown-item" to="/profile">
+                        Profile
+                      </Link>
 
-                        <Link
-                          className="dropdown-item" to="#"
-                          onClick={logOutHandler}
-                        >
-                          Logout
-                        </Link>
-                      </div>
+                      <Link
+                        className="dropdown-item"
+                        to="#"
+                        onClick={logOutHandler}>
+                        Logout
+                      </Link>
                     </div>
-                  )
-                    :
-                    (
-                      <>
-                        <Link to="/register">Register</Link>
-                        <Link to="/login">Login</Link>
-                      </>
-                    )
-                }
+                  </div>
+                ) : (
+                  <>
+                    <Link to="/register">Register</Link>
+                    <Link to="/login">Login</Link>
+                  </>
+                )}
 
                 <Link to="/cart">
                   <i className="fas fa-shopping-bag"></i>
@@ -181,7 +172,7 @@ const Header = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

@@ -1,25 +1,25 @@
-import React, { useEffect } from "react"
-import { Link } from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux"
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
-import Rating from "./Rating"
-import Pagination from "./pagination"
-import Loading from "../LoadingError/Loading"
-import Message from "../LoadingError/Error"
+import Rating from './Rating';
+import Pagination from './pagination';
+import Loading from '../LoadingError/Loading';
+import Message from '../LoadingError/Error';
 
-import { listProduct } from '../../redux/actions/productActions'
+import { listProduct } from '../../redux/actions/productActions';
 
 const ShopSection = (props) => {
-  const { keyword, pagenumber } = props
-  const dispatch = useDispatch()
+  const { keyword, pagenumber } = props;
+  const dispatch = useDispatch();
 
-  const productList = useSelector((state) => state.productList)
+  const productList = useSelector((state) => state.productList);
 
-  const { loading, error, products, page, pages } = productList
+  const { loading, error, products, page, pages } = productList;
 
   useEffect(() => {
-    dispatch(listProduct(keyword, pagenumber))
-  }, [dispatch, keyword, pagenumber])
+    dispatch(listProduct(keyword, pagenumber));
+  }, [dispatch, keyword, pagenumber]);
 
   return (
     <>
@@ -39,8 +39,7 @@ const ShopSection = (props) => {
                     {products.map((product) => (
                       <div
                         className="shop col-lg-4 col-md-6 col-sm-6"
-                        key={product._id}
-                      >
+                        key={product._id}>
                         <div className="border-product">
                           <Link to={`/products/${product._id}`}>
                             <div className="shopBack">
@@ -71,7 +70,7 @@ const ShopSection = (props) => {
                 <Pagination
                   pages={pages}
                   page={page}
-                  keyword={keyword ? keyword : ""}
+                  keyword={keyword ? keyword : ''}
                 />
               </div>
             </div>
@@ -79,7 +78,7 @@ const ShopSection = (props) => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default ShopSection
+export default ShopSection;

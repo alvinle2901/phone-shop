@@ -1,37 +1,36 @@
-import React, { useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { useNavigate } from "react-router-dom"
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
-import Header from "../components/Header"
-import { saveShippingAddress } from "../redux/actions/cartActions"
+import Header from '../components/Header';
+import { saveShippingAddress } from '../redux/actions/cartActions';
 
 const ShippingScreen = ({ history }) => {
-  window.scrollTo(0, 0)
+  window.scrollTo(0, 0);
 
   //const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const cart = useSelector((state) => state.cart)
-  const { shippingAddress } = cart
+  const cart = useSelector((state) => state.cart);
+  const { shippingAddress } = cart;
 
-  const [address, setAddress] = useState(shippingAddress?.address)
-  const [city, setCity] = useState(shippingAddress?.city)
-  const [postalCode, setPostalCode] = useState(shippingAddress?.postalCode)
-  const [country, setCountry] = useState(shippingAddress?.country)
+  const [address, setAddress] = useState(shippingAddress?.address);
+  const [city, setCity] = useState(shippingAddress?.city);
+  const [postalCode, setPostalCode] = useState(shippingAddress?.postalCode);
+  const [country, setCountry] = useState(shippingAddress?.country);
 
   const submitHandler = (e) => {
-    e.preventDefault()
-    dispatch(saveShippingAddress({ address, city, postalCode, country }))
-    history.push("/payment")
-  }
+    e.preventDefault();
+    dispatch(saveShippingAddress({ address, city, postalCode, country }));
+    history.push('/payment');
+  };
   return (
     <>
       <Header />
       <div className="container d-flex justify-content-center align-items-center login-center">
         <form
           className="Login col-md-8 col-lg-4 col-11"
-          onSubmit={submitHandler}
-        >
+          onSubmit={submitHandler}>
           <h6>DELIVERY ADDRESS</h6>
           <input
             type="text"
@@ -65,7 +64,7 @@ const ShippingScreen = ({ history }) => {
         </form>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default ShippingScreen
+export default ShippingScreen;

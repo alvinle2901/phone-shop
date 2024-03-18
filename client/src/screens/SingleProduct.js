@@ -1,65 +1,68 @@
-import React, { useEffect, useState } from "react"
-import { Link, useParams, useNavigate } from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux"
-import moment from "moment"
+import React, { useEffect, useState } from 'react';
+import { Link, useParams, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import moment from 'moment';
 
-import Header from "./../components/Header"
-import Rating from "../components/homeComponents/Rating"
-import Message from "./../components/LoadingError/Error"
-import Loading from "./../components/LoadingError/Loading"
+import Header from './../components/Header';
+import Rating from '../components/homeComponents/Rating';
+import Message from './../components/LoadingError/Error';
+import Loading from './../components/LoadingError/Loading';
 
-import { createProductReview, listProductDetails, } from "../redux/actions/productActions"
-import { PRODUCT_CREATE_REVIEW_RESET } from "../redux/constants/productConstants"
+import {
+  createProductReview,
+  listProductDetails
+} from '../redux/actions/productActions';
+import { PRODUCT_CREATE_REVIEW_RESET } from '../redux/constants/productConstants';
 
 const SingleProduct = ({ history, match }) => {
-  const [qty, setQty] = useState(1)
-  const [rating, setRating] = useState(0)
-  const [comment, setComment] = useState("")
+  const [qty, setQty] = useState(1);
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState('');
 
   //const {id} = useParams()
   //const productId = id
 
   const productId = match.params.id;
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   //const navigate = useNavigate()
 
-  const productDetails = useSelector((state) => state.productDetails)
-  const { loading, error, product } = productDetails
+  const productDetails = useSelector((state) => state.productDetails);
+  const { loading, error, product } = productDetails;
 
-  const userLogin = useSelector((state) => state.userLogin)
-  const { userInfo } = userLogin
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
-  const productReviewCreate = useSelector((state) => state.productReviewCreate)
+  const productReviewCreate = useSelector((state) => state.productReviewCreate);
   const {
     loading: loadingCreateReview,
     error: errorCreateReview,
-    success: successCreateReview,
-  } = productReviewCreate
+    success: successCreateReview
+  } = productReviewCreate;
 
   useEffect(() => {
     if (successCreateReview) {
-      alert("Review Submitted")
-      setRating(0)
-      setComment("")
-      dispatch({ type: PRODUCT_CREATE_REVIEW_RESET })
+      alert('Review Submitted');
+      setRating(0);
+      setComment('');
+      dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
     }
-    dispatch(listProductDetails(productId))
-  }, [dispatch, productId, successCreateReview])
+    dispatch(listProductDetails(productId));
+  }, [dispatch, productId, successCreateReview]);
 
   const AddToCartHandle = (e) => {
-    e.preventDefault()
-    history.push(`/cart/${productId}?qty=${qty}`)
-  }
-  
+    e.preventDefault();
+    history.push(`/cart/${productId}?qty=${qty}`);
+  };
+
   const submitHandler = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     dispatch(
       createProductReview(productId, {
         rating,
-        comment,
+        comment
       })
-    )
-  }
+    );
+  };
   return (
     <>
       <Header />
@@ -109,8 +112,7 @@ const SingleProduct = ({ history, match }) => {
                           <h6>Quantity</h6>
                           <select
                             value={qty}
-                            onChange={(e) => setQty(e.target.value)}
-                          >
+                            onChange={(e) => setQty(e.target.value)}>
                             {[...Array(product.countInStock).keys()].map(
                               (x) => (
                                 <option key={x + 1} value={x + 1}>
@@ -122,8 +124,7 @@ const SingleProduct = ({ history, match }) => {
                         </div>
                         <button
                           onClick={AddToCartHandle}
-                          className="round-black-btn"
-                        >
+                          className="round-black-btn">
                           Add To Cart
                         </button>
                       </>
@@ -138,13 +139,12 @@ const SingleProduct = ({ history, match }) => {
               <div className="col-md-6">
                 <h6 className="mb-3">REVIEWS</h6>
                 {product.reviews?.length === 0 && (
-                  <Message variant={"alert-info mt-3"}>No Reviews</Message>
+                  <Message variant={'alert-info mt-3'}>No Reviews</Message>
                 )}
                 {product.reviews?.map((review) => (
                   <div
                     key={review._id}
-                    className="mb-5 mb-md-3 bg-light p-3 shadow-sm rounded"
-                  >
+                    className="mb-5 mb-md-3 bg-light p-3 shadow-sm rounded">
                     <strong>{review.name}</strong>
                     <Rating value={review.rating} />
                     <span>{moment(review.createdAt).calendar()}</span>
@@ -171,8 +171,7 @@ const SingleProduct = ({ history, match }) => {
                       <select
                         value={rating}
                         onChange={(e) => setRating(e.target.value)}
-                        className="col-12 bg-light p-3 mt-2 border-0 rounded"
-                      >
+                        className="col-12 bg-light p-3 mt-2 border-0 rounded">
                         <option value="">Select...</option>
                         <option value="1">1 - Poor</option>
                         <option value="2">2 - Fair</option>
@@ -187,26 +186,24 @@ const SingleProduct = ({ history, match }) => {
                         row="3"
                         value={comment}
                         onChange={(e) => setComment(e.target.value)}
-                        className="col-12 bg-light p-3 mt-2 border-0 rounded"
-                      ></textarea>
+                        className="col-12 bg-light p-3 mt-2 border-0 rounded"></textarea>
                     </div>
                     <div className="my-3">
                       <button
                         disabled={loadingCreateReview}
-                        className="col-12 bg-black border-0 p-3 rounded text-white"
-                      >
+                        className="col-12 bg-black border-0 p-3 rounded text-white">
                         SUBMIT
                       </button>
                     </div>
                   </form>
                 ) : (
                   <div className="my-3">
-                    <Message variant={"alert-warning"}>
-                      Please{" "}
+                    <Message variant={'alert-warning'}>
+                      Please{' '}
                       <Link to="/login">
                         " <strong>Login</strong> "
-                      </Link>{" "}
-                      to write a review{" "}
+                      </Link>{' '}
+                      to write a review{' '}
                     </Message>
                   </div>
                 )}
@@ -216,7 +213,7 @@ const SingleProduct = ({ history, match }) => {
         )}
       </div>
     </>
-  )
-}
+  );
+};
 
-export default SingleProduct
+export default SingleProduct;

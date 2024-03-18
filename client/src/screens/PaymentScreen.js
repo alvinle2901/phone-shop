@@ -1,31 +1,31 @@
-import React, { useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { Link } from "react-router-dom"
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-import { savePaymentMethod } from "../redux/actions/cartActions"
+import { savePaymentMethod } from '../redux/actions/cartActions';
 
-import Header from "./../components/Header"
+import Header from './../components/Header';
 
 const PaymentScreen = ({ history }) => {
-  window.scrollTo(0, 0)
+  window.scrollTo(0, 0);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   //get shipping address state
-  const cart = useSelector((state) => state.cart)
-  const { shippingAddress } = cart
+  const cart = useSelector((state) => state.cart);
+  const { shippingAddress } = cart;
 
   if (!shippingAddress) {
-    history.push("/shipping")
+    history.push('/shipping');
   }
 
-  const [paymentMethod, setPaymentMethod] = useState("PayPal")
+  const [paymentMethod, setPaymentMethod] = useState('PayPal');
 
   const submitHandler = (e) => {
-    e.preventDefault()
-    dispatch(savePaymentMethod(paymentMethod))
-    history.push("/placeorder")
-  }
+    e.preventDefault();
+    dispatch(savePaymentMethod(paymentMethod));
+    history.push('/placeorder');
+  };
 
   return (
     <>
@@ -33,8 +33,7 @@ const PaymentScreen = ({ history }) => {
       <div className="container d-flex justify-content-center align-items-center login-center">
         <form
           className="Login2 col-md-8 col-lg-4 col-11"
-          onSubmit={submitHandler}
-        >
+          onSubmit={submitHandler}>
           <h6>SELECT PAYMENT METHOD</h6>
           <div className="payment-container">
             <div className="radio-container">
@@ -56,7 +55,7 @@ const PaymentScreen = ({ history }) => {
         </form>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default PaymentScreen
+export default PaymentScreen;

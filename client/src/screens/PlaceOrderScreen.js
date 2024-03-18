@@ -1,49 +1,49 @@
-import React, { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { Link } from "react-router-dom"
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-import { createOrder } from "../redux/actions/orderActions"
-import { ORDER_CREATE_RESET } from "../redux/constants/orderConstants"
+import { createOrder } from '../redux/actions/orderActions';
+import { ORDER_CREATE_RESET } from '../redux/constants/orderConstants';
 
-import Header from "./../components/Header"
-import Message from "./../components/LoadingError/Error"
+import Header from './../components/Header';
+import Message from './../components/LoadingError/Error';
 
 const PlaceOrderScreen = ({ history }) => {
-  window.scrollTo(0, 0)
+  window.scrollTo(0, 0);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   //get cart state
-  const cart = useSelector((state) => state.cart)
+  const cart = useSelector((state) => state.cart);
   //get user login state
-  const userLogin = useSelector((state) => state.userLogin)
-  const { userInfo } = userLogin
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
   const addDecimals = (num) => {
-    return (Math.round(num * 100) / 100).toFixed(2)
-  }
+    return (Math.round(num * 100) / 100).toFixed(2);
+  };
 
   cart.itemsPrice = addDecimals(
     cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)
-  )
+  );
 
-  cart.shippingPrice = addDecimals(cart.itemsPrice > 100 ? 0 : 100)
-  cart.taxPrice = addDecimals(Number((0.15 * cart.itemsPrice).toFixed(2)))
+  cart.shippingPrice = addDecimals(cart.itemsPrice > 100 ? 0 : 100);
+  cart.taxPrice = addDecimals(Number((0.15 * cart.itemsPrice).toFixed(2)));
   cart.totalPrice = (
     Number(cart.itemsPrice) +
     Number(cart.shippingPrice) +
     Number(cart.taxPrice)
-  ).toFixed(2)
+  ).toFixed(2);
 
   //get order create state
-  const orderCreate = useSelector((state) => state.orderCreate)
-  const { order, success, error } = orderCreate
+  const orderCreate = useSelector((state) => state.orderCreate);
+  const { order, success, error } = orderCreate;
 
   useEffect(() => {
     if (success) {
-      history.push(`/order/${order._id}`)
-      dispatch({ type: ORDER_CREATE_RESET })
+      history.push(`/order/${order._id}`);
+      dispatch({ type: ORDER_CREATE_RESET });
     }
-  }, [history, dispatch, success, order])
+  }, [history, dispatch, success, order]);
 
   const placeOrderHandler = () => {
     dispatch(
@@ -54,10 +54,10 @@ const PlaceOrderScreen = ({ history }) => {
         itemsPrice: cart.itemsPrice,
         shippingPrice: cart.shippingPrice,
         taxPrice: cart.taxPrice,
-        totalPrice: cart.totalPrice,
+        totalPrice: cart.totalPrice
       })
-    )
-  }
+    );
+  };
 
   return (
     <>
@@ -110,8 +110,8 @@ const PlaceOrderScreen = ({ history }) => {
                   <strong>Deliver to</strong>
                 </h5>
                 <p>
-                  Address: {cart.shippingAddress.city},{" "}
-                  {cart.shippingAddress.address},{" "}
+                  Address: {cart.shippingAddress.city},{' '}
+                  {cart.shippingAddress.address},{' '}
                   {cart.shippingAddress.postalCode}
                 </p>
               </div>
@@ -192,7 +192,7 @@ const PlaceOrderScreen = ({ history }) => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default PlaceOrderScreen
+export default PlaceOrderScreen;

@@ -1,22 +1,22 @@
-import React, { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import moment from "moment"
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import moment from 'moment';
 
-import { getUserDetails } from "../redux/actions/userActions"
-import { listMyOrders } from "../redux/actions/orderActions"
+import { getUserDetails } from '../redux/actions/userActions';
+import { listMyOrders } from '../redux/actions/orderActions';
 
-import Header from "../components/Header"
-import ProfileTabs from "../components/profileComponents/ProfileTabs"
-import Orders from "./../components/profileComponents/Orders"
+import Header from '../components/Header';
+import ProfileTabs from '../components/profileComponents/ProfileTabs';
+import Orders from './../components/profileComponents/Orders';
 
 const ProfileScreen = () => {
-  window.scrollTo(0, 0)
+  window.scrollTo(0, 0);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   // get user login state
-  const userLogin = useSelector((state) => state.userLogin)
-  const { userInfo } = userLogin
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
   //get order list state
   const orderListMy = useSelector((state) => state.orderListMy);
@@ -24,8 +24,8 @@ const ProfileScreen = () => {
 
   useEffect(() => {
     dispatch(listMyOrders());
-    dispatch(getUserDetails("profile"))
-  }, [dispatch])
+    dispatch(getUserDetails('profile'));
+  }, [dispatch]);
 
   return (
     <>
@@ -44,7 +44,9 @@ const ProfileScreen = () => {
                     <strong>{userInfo.name}</strong>
                   </h5>
                   <span className="author-card-position">
-                    <>Joined {moment(userInfo.createdAt).format("MMM Do YYYY")}</>
+                    <>
+                      Joined {moment(userInfo.createdAt).format('MMM Do YYYY')}
+                    </>
                   </span>
                 </div>
               </div>
@@ -55,8 +57,7 @@ const ProfileScreen = () => {
                   class="nav align-items-start flex-column col-12 nav-pills me-3 "
                   id="v-pills-tab"
                   role="tablist"
-                  aria-orientation="vertical"
-                >
+                  aria-orientation="vertical">
                   <button
                     class="nav-link active"
                     id="v-pills-home-tab"
@@ -65,8 +66,7 @@ const ProfileScreen = () => {
                     type="button"
                     role="tab"
                     aria-controls="v-pills-home"
-                    aria-selected="true"
-                  >
+                    aria-selected="true">
                     Profile Settings
                   </button>
                   <button
@@ -77,8 +77,7 @@ const ProfileScreen = () => {
                     type="button"
                     role="tab"
                     aria-controls="v-pills-profile"
-                    aria-selected="false"
-                  >
+                    aria-selected="false">
                     Orders List
                     <span className="badge2">3</span>
                   </button>
@@ -90,29 +89,26 @@ const ProfileScreen = () => {
           {/* panels */}
           <div
             class="tab-content col-lg-8 pb-5 pt-lg-0 pt-3"
-            id="v-pills-tabContent"
-          >
+            id="v-pills-tabContent">
             <div
               class="tab-pane fade show active"
               id="v-pills-home"
               role="tabpanel"
-              aria-labelledby="v-pills-home-tab"
-            >
+              aria-labelledby="v-pills-home-tab">
               <ProfileTabs />
             </div>
             <div
               class="tab-pane fade"
               id="v-pills-profile"
               role="tabpanel"
-              aria-labelledby="v-pills-profile-tab"
-            >
-              <Orders orders={orders} loading={loading} error={error}/>
+              aria-labelledby="v-pills-profile-tab">
+              <Orders orders={orders} loading={loading} error={error} />
             </div>
           </div>
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default ProfileScreen
+export default ProfileScreen;

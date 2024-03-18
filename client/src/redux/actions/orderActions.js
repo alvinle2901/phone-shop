@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios from 'axios';
 
 import {
   ORDER_CREATE_FAIL,
@@ -12,143 +12,144 @@ import {
   ORDER_LIST_MY_SUCCESS,
   ORDER_PAY_FAIL,
   ORDER_PAY_REQUEST,
-  ORDER_PAY_SUCCESS,
-} from "../constants/orderConstants"
+  ORDER_PAY_SUCCESS
+} from '../constants/orderConstants';
 
-import { CART_CLEAR_ITEMS } from "../constants/cartConstants"
-import { LogOut } from "./userActions"
+import { CART_CLEAR_ITEMS } from '../constants/cartConstants';
+import { LogOut } from './userActions';
 
-const link = "https://phone-shop-alpha.vercel.app"
+const link = 'https://phone-shop-alpha.vercel.app';
 
 export const createOrder = (order) => async (dispatch, getState) => {
   try {
-    dispatch({ type: ORDER_CREATE_REQUEST })
+    dispatch({ type: ORDER_CREATE_REQUEST });
 
     const {
-      userLogin: { userInfo },
-    } = getState()
+      userLogin: { userInfo }
+    } = getState();
 
     const config = {
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    }
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    };
 
-    const { data } = await axios.post(`${link}/api/orders`, order, config)
-    dispatch({ type: ORDER_CREATE_SUCCESS, payload: data })
-    dispatch({ type: CART_CLEAR_ITEMS, payload: data })
+    const { data } = await axios.post(`${link}/api/orders`, order, config);
+    dispatch({ type: ORDER_CREATE_SUCCESS, payload: data });
+    dispatch({ type: CART_CLEAR_ITEMS, payload: data });
 
-    localStorage.removeItem("cartItems")
+    localStorage.removeItem('cartItems');
   } catch (error) {
     const message =
       error.response && error.response.data.message
         ? error.response.data.message
-        : error.message
-    if (message === "Not authorized, token failed") {
-      dispatch(LogOut())
+        : error.message;
+    if (message === 'Not authorized, token failed') {
+      dispatch(LogOut());
     }
     dispatch({
       type: ORDER_CREATE_FAIL,
-      payload: message,
-    })
+      payload: message
+    });
   }
-}
+};
 
 export const getOrderDetails = (id) => async (dispatch, getState) => {
   try {
-    dispatch({ type: ORDER_DETAILS_REQUEST })
+    dispatch({ type: ORDER_DETAILS_REQUEST });
 
     const {
-      userLogin: { userInfo },
-    } = getState()
+      userLogin: { userInfo }
+    } = getState();
 
     const config = {
       headers: {
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    }
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    };
 
-    const { data } = await axios.get(`${link}/api/orders/${id}`, config)
-    dispatch({ type: ORDER_DETAILS_SUCCESS, payload: data })
+    const { data } = await axios.get(`${link}/api/orders/${id}`, config);
+    dispatch({ type: ORDER_DETAILS_SUCCESS, payload: data });
   } catch (error) {
     const message =
       error.response && error.response.data.message
         ? error.response.data.message
-        : error.message
-    if (message === "Not authorized, token failed") {
-      dispatch(LogOut())
+        : error.message;
+    if (message === 'Not authorized, token failed') {
+      dispatch(LogOut());
     }
     dispatch({
       type: ORDER_DETAILS_FAIL,
-      payload: message,
-    })
+      payload: message
+    });
   }
-}
+};
 
-export const payOrder = (orderId, paymentResult) => async (dispatch, getState) => {
-  try {
-    dispatch({ type: ORDER_PAY_REQUEST })
+export const payOrder =
+  (orderId, paymentResult) => async (dispatch, getState) => {
+    try {
+      dispatch({ type: ORDER_PAY_REQUEST });
 
-    const {
-      userLogin: { userInfo },
-    } = getState()
+      const {
+        userLogin: { userInfo }
+      } = getState();
 
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${userInfo.token}`,
-      },
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userInfo.token}`
+        }
+      };
+
+      const { data } = await axios.put(
+        `${link}/api/orders/${orderId}/pay`,
+        paymentResult,
+        config
+      );
+      dispatch({ type: ORDER_PAY_SUCCESS, payload: data });
+    } catch (error) {
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+      if (message === 'Not authorized, token failed') {
+        dispatch(LogOut());
+      }
+      dispatch({
+        type: ORDER_PAY_FAIL,
+        payload: message
+      });
     }
-
-    const { data } = await axios.put(
-      `${link}/api/orders/${orderId}/pay`,
-      paymentResult,
-      config
-    )
-    dispatch({ type: ORDER_PAY_SUCCESS, payload: data })
-  } catch (error) {
-    const message =
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message
-    if (message === "Not authorized, token failed") {
-      dispatch(LogOut())
-    }
-    dispatch({
-      type: ORDER_PAY_FAIL,
-      payload: message,
-    })
-  }
-}
+  };
 
 export const listMyOrders = () => async (dispatch, getState) => {
   try {
-    dispatch({ type: ORDER_LIST_MY_REQUEST })
+    dispatch({ type: ORDER_LIST_MY_REQUEST });
 
     const {
-      userLogin: { userInfo },
-    } = getState()
+      userLogin: { userInfo }
+    } = getState();
 
     const config = {
       headers: {
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    }
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    };
 
-    const { data } = await axios.get(`${link}/api/orders/`, config)
-    dispatch({ type: ORDER_LIST_MY_SUCCESS, payload: data })
+    const { data } = await axios.get(`${link}/api/orders/`, config);
+    dispatch({ type: ORDER_LIST_MY_SUCCESS, payload: data });
   } catch (error) {
     const message =
       error.response && error.response.data.message
         ? error.response.data.message
-        : error.message
-    if (message === "Not authorized, token failed") {
-      dispatch(LogOut())
+        : error.message;
+    if (message === 'Not authorized, token failed') {
+      dispatch(LogOut());
     }
     dispatch({
       type: ORDER_LIST_MY_FAIL,
-      payload: message,
-    })
+      payload: message
+    });
   }
-}
+};

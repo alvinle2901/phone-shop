@@ -1,34 +1,34 @@
-import React, { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux"
-import moment from "moment"
-import axios from "axios"
-import { PayPalButton } from "react-paypal-button-v2"
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import moment from 'moment';
+import axios from 'axios';
+import { PayPalButton } from 'react-paypal-button-v2';
 
-import Header from "./../components/Header"
-import Loading from "./../components/LoadingError/Loading"
-import Message from "./../components/LoadingError/Error"
+import Header from './../components/Header';
+import Loading from './../components/LoadingError/Loading';
+import Message from './../components/LoadingError/Error';
 
-import { getOrderDetails, payOrder } from "../redux/actions/orderActions"
-import { ORDER_PAY_RESET } from "../redux/constants/orderConstants"
+import { getOrderDetails, payOrder } from '../redux/actions/orderActions';
+import { ORDER_PAY_RESET } from '../redux/constants/orderConstants';
 
 const OrderScreen = ({ match }) => {
-  window.scrollTo(0, 0)
+  window.scrollTo(0, 0);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const orderId = match.params.id
-  const [sdkReady, setSdkReady] = useState(false)
+  const orderId = match.params.id;
+  const [sdkReady, setSdkReady] = useState(false);
 
   //get order detail state
-  const orderDetails = useSelector((state) => state.orderDetails)
-  const { order, loading, error } = orderDetails
+  const orderDetails = useSelector((state) => state.orderDetails);
+  const { order, loading, error } = orderDetails;
 
   //get pay state
-  const orderPay = useSelector((state) => state.orderPay)
-  const { loading: loadingPay, success: successPay } = orderPay
+  const orderPay = useSelector((state) => state.orderPay);
+  const { loading: loadingPay, success: successPay } = orderPay;
 
-  const link = "https://teeny-eggnog-production.up.railway.app" 
+  const link = 'https://phone-shop-alpha.vercel.app';
 
   if (!loading) {
     const addDecimals = (num) => {
@@ -42,31 +42,31 @@ const OrderScreen = ({ match }) => {
 
   useEffect(() => {
     const addPayPalScript = async () => {
-      const { data: clientId } = await axios.get(`${link}/api/config/paypal`)
-      const script = document.createElement("script")
-      script.type = "text/javascript"
-      script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`
-      script.async = true
+      const { data: clientId } = await axios.get(`${link}/api/config/paypal`);
+      const script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
+      script.async = true;
       script.onload = () => {
-        setSdkReady(true)
-      }
-      document.body.appendChild(script)
-    }
+        setSdkReady(true);
+      };
+      document.body.appendChild(script);
+    };
     if (!order || successPay) {
-      dispatch({ type: ORDER_PAY_RESET })
-      dispatch(getOrderDetails(orderId))
+      dispatch({ type: ORDER_PAY_RESET });
+      dispatch(getOrderDetails(orderId));
     } else if (!order.isPaid) {
       if (!window.paypal) {
-        addPayPalScript()
+        addPayPalScript();
       } else {
-        setSdkReady(true)
+        setSdkReady(true);
       }
     }
-  }, [dispatch, orderId, successPay, order])
+  }, [dispatch, orderId, successPay, order]);
 
   const successPaymentHandler = (paymentResult) => {
-    dispatch(payOrder(orderId, paymentResult))
-  }
+    dispatch(payOrder(orderId, paymentResult));
+  };
 
   return (
     <>
@@ -142,8 +142,8 @@ const OrderScreen = ({ match }) => {
                       <strong>Deliver to</strong>
                     </h5>
                     <p>
-                      Address: {order.shippingAddress.city},{" "}
-                      {order.shippingAddress.address},{" "}
+                      Address: {order.shippingAddress.city},{' '}
+                      {order.shippingAddress.address},{' '}
                       {order.shippingAddress.postalCode}
                     </p>
                     {order.isDelivered ? (
@@ -244,7 +244,7 @@ const OrderScreen = ({ match }) => {
         )}
       </div>
     </>
-  )
-}
+  );
+};
 
-export default OrderScreen
+export default OrderScreen;
