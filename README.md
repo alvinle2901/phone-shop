@@ -24,7 +24,7 @@ Features:
     * Password: test123
 -   This account can be used to test Paypal payment:
     * Email: sb-n0vgq29855989@business.example.com
-    *Password: VOhf@N2r
+    * Password: VOhf@N2r
 
 ## Illustrations
 
