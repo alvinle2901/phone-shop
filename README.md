@@ -20,29 +20,29 @@ Features:
 
 -   Click the following link to see the demo: https://phone-shop-ecommerce.onrender.com
 -   This account can be used to test the authentication or you can create your own: 
--   Email: test123@gmail.com
--   Password: test123
+    * Email: test123@gmail.com
+    * Password: test123
 -   This account can be used to test Paypal payment:
--   Email: sb-n0vgq29855989@business.example.com
--   Password: VOhf@N2r
+    * Email: sb-n0vgq29855989@business.example.com
+    *Password: VOhf@N2r
 
 ## Illustrations
 
 ### Home page
 
-<img width="1920" alt="" src="hhttps://i.ibb.co/r3bhXYx/Screenshot-2024-03-18-181629.png">
+<img width="1920" alt="" src="https://i.ibb.co/T2ZBScd/Screenshot-2024-03-18-182549.png">
 
-### Products page
+### Product page
 
-<img width="1920" alt="" src="https://i.ibb.co/6ntkg4M/Screenshot-2024-03-18-181735.png">
+<img width="1920" alt="" src="https://i.ibb.co/4NyLt2v/Screenshot-2024-03-18-182646.png">
 
 ### Login page
 
-<img width="1920" alt="" src="https://i.ibb.co/4m9XSmd/Screenshot-2024-03-18-181952.png">
+<img width="1920" alt="" src="https://i.ibb.co/W5MN789/Screenshot-2024-03-18-182330.png">
 
 ### Payment page
 
-<img width="1920" alt="" src="https://i.ibb.co/KGPvBcZ/Screenshot-2024-03-18-181915.png">
+<img width="1920" alt="" src="https://i.ibb.co/C55sDfQ/Screenshot-2024-03-18-182739.png">
 
 ## Install
 
